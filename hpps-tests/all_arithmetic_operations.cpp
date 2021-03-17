@@ -33,7 +33,7 @@ int main(int argc,char** argv){
   steady_clock::time_point t2 = steady_clock::now();
   duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
 
-  double res[N]; // TAFFO:   __attribute__((annotate("range 0 499000000")))
+  double res[N];
 
   for(size_t r_=0;r_<N;r_++){
     res[r_] = std::fmod((N * N),modulo);

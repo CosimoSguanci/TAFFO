@@ -23,7 +23,7 @@ int main(int argc,char** argv){
   int N = 100000;
   int T = 10000;
   int modulo = 5000;
-  __attribute__((annotate("range 300 300"))) float seconds = 300.0;
+  float seconds = 300.0;
 
   /*How many iterations we did.*/
   size_t count=0;
@@ -33,7 +33,7 @@ int main(int argc,char** argv){
   steady_clock::time_point t2 = steady_clock::now();
   duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
 
-  __attribute__((annotate("range 0 9999809091"))) double res[N]; // TAFFO:   __attribute__((annotate("range 0 499000000")))
+  __attribute__((annotate("range 0 9999809091"))) double res[N];
 
   for(size_t r_=0;r_<N;r_++){
     res[r_] = std::fmod((N * N),modulo);
