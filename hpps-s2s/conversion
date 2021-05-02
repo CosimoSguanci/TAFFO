@@ -1,0 +1,13 @@
+0 0 phi 
+39 17 call NOT-BUILT-IN
+40 17 call NOT-BUILT-IN
+41 17 call NOT-BUILT-IN
+44 27 fptosi 
+45 27 fptosi 
+46 27 fptosi 
+44 25 store 
+45 25 store 
+46 25 store 
+12 13 fcmp 
+0 0 phi 
+11 13 fcmp 

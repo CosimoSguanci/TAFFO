@@ -1,0 +1,3 @@
+/Users/cosimosguanci/Desktop/TAFFO_S2S/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/cosimosguanci/Desktop/TAFFO_S2S/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/cosimosguanci/Desktop/TAFFO_S2S/cmake-build-debug/CMakeFiles/TAFFO_S2S.dir
