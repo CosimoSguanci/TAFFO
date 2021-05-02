@@ -1,9 +1,9 @@
 [submodule "Initializer"]
 	path = lib/Initializer
-	url = git@github.com:HEAPLab/TAFFO-submodule-init.git
+	url = git@github.com:CosimoSguanci/TAFFO-submodule-init.git
 [submodule "Conversion"]
 	path = lib/Conversion
-	url = git@github.com:HEAPLab/TAFFO-submodule-conv.git
+	url = git@github.com:CosimoSguanci/TAFFO-submodule-conv.git
 [submodule "ErrorAnalysis"]
 	path = lib/ErrorAnalysis
 	url = git@github.com:HEAPLab/TAFFO-submodule-fe.git
