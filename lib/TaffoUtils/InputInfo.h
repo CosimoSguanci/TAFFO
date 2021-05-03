@@ -157,6 +157,10 @@ public:
   
   virtual bool getEnableConversion() const = 0;
 
+  virtual bool isDeclaration() const = 0;
+
+  virtual int64_t getLocation() const = 0;
+
 private:
   const MDInfoKind Kind;
 };
@@ -169,15 +173,17 @@ struct InputInfo : public MDInfo {
   std::shared_ptr<double> IError;
   bool IEnableConversion;
   bool IFinal;
+  bool IDeclaration;
+  int64_t location;
 
   InputInfo()
-    : MDInfo(K_Field), IType(nullptr), IRange(nullptr), IError(nullptr), IEnableConversion(false), IFinal(false) {}
+    : MDInfo(K_Field), IType(nullptr), IRange(nullptr), IError(nullptr), IEnableConversion(false), IFinal(false), IDeclaration(false), location(0){}
 
   InputInfo(std::shared_ptr<TType> T, std::shared_ptr<Range> R, std::shared_ptr<double> Error)
-    : MDInfo(K_Field), IType(T), IRange(R), IError(Error), IEnableConversion(false), IFinal(false) {}
+    : MDInfo(K_Field), IType(T), IRange(R), IError(Error), IEnableConversion(false), IFinal(false), IDeclaration(false), location(0) {}
 
-  InputInfo(std::shared_ptr<TType> T, std::shared_ptr<Range> R, std::shared_ptr<double> Error, bool EnC, bool IsFinal = false)
-    : MDInfo(K_Field), IType(T), IRange(R), IError(Error), IEnableConversion(EnC), IFinal(IsFinal) {}
+  InputInfo(std::shared_ptr<TType> T, std::shared_ptr<Range> R, std::shared_ptr<double> Error, bool EnC, bool IsFinal = false, bool IsDecl = false, int64_t location = 0)
+    : MDInfo(K_Field), IType(T), IRange(R), IError(Error), IEnableConversion(EnC), IFinal(IsFinal), IDeclaration(IsDecl), location(location) {}
 
   virtual MDInfo *clone() const override {
     std::shared_ptr<TType> NewIType(IType.get() ? IType->clone() : nullptr);
@@ -196,6 +202,8 @@ struct InputInfo : public MDInfo {
     this->IError = O.IError;
     this->IEnableConversion = O.IEnableConversion;
     this->IFinal = O.IFinal;
+    this->IDeclaration = O.IDeclaration;
+    this->location = O.location;
     return *this;
   };
 
@@ -223,6 +231,10 @@ struct InputInfo : public MDInfo {
       if (!first) sstm << " ";
       sstm << "final";
     }
+    if (IDeclaration) {
+      if (!first) sstm << " ";
+      sstm << "declaration";
+    }
     sstm << ")";
     return sstm.str();
   };
@@ -232,6 +244,12 @@ struct InputInfo : public MDInfo {
   };
 
   bool isFinal() const { return IFinal; }
+
+  bool isDeclaration() const override { return IDeclaration; }
+
+  int64_t getLocation() const override {
+    return location;
+  }
 
   static bool classof(const MDInfo *M) { return M->getKind() == K_Field; }
 };
@@ -364,6 +382,10 @@ public:
     llvm::SmallPtrSet<const StructInfo *, 1> visited;
     return _getEnableConversion(visited);
   };
+
+  bool isDeclaration() const override { return false; }
+
+  int64_t getLocation() const override { return 0; }
 
   llvm::MDNode *toMetadata(llvm::LLVMContext &C) const override;
 
